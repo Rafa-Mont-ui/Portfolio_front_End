@@ -1,20 +1,24 @@
 "use client"
 
-import { AnimeFadeIn } from "@/components/ui/anime-fade-in"
+import { motion } from "framer-motion"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
 
 export function About() {
   return (
     <section id="sobre" className="relative px-6 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <AnimeFadeIn className="mb-16 flex items-center gap-4">
-          <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
-            Sobre mim
-          </h2>
-          <div className="h-px flex-1 bg-border" />
-        </AnimeFadeIn>
+        <ScrollReveal>
+          <div className="mb-16 flex items-center gap-4">
+            <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
+              Sobre mim
+            </h2>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        </ScrollReveal>
 
         <div className="grid gap-12 md:grid-cols-2">
-          <AnimeFadeIn direction="left" amount={0.3}>
+          <ScrollReveal delay={0.1}>
+          <div>
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -30,11 +34,17 @@ export function About() {
               iure reprehenderit qui in ea voluptate velit esse quam nihil
               molestiae consequatur.
             </p>
-          </AnimeFadeIn>
+          </div>
+          </ScrollReveal>
 
-          <AnimeFadeIn direction="right" amount={0.3} className="flex items-center justify-center">
+          <ScrollReveal delay={0.2}>
+          <div className="flex items-center justify-center">
             <div className="relative">
-              <div className="h-72 w-72 rounded-2xl border border-border bg-secondary/50 md:h-80 md:w-80">
+              <motion.div
+                className="h-72 w-72 rounded-2xl border border-border bg-secondary/50 md:h-80 md:w-80"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <div className="flex h-full w-full items-center justify-center">
                   <div className="text-center">
                     <div
@@ -48,11 +58,12 @@ export function About() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
               {/* Decorative glow */}
               <div className="pointer-events-none absolute -inset-4 -z-10 rounded-2xl bg-neon/5 blur-2xl" />
             </div>
-          </AnimeFadeIn>
+          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

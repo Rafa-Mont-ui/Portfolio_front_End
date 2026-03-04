@@ -1,7 +1,7 @@
 "use client"
 
-import { AnimeFadeIn } from "@/components/ui/anime-fade-in"
-import { AnimeStaggerIn } from "@/components/ui/anime-stagger-in"
+import { motion } from "framer-motion"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
 
 const experiences = [
   {
@@ -54,24 +54,48 @@ const experiences = [
   },
 ]
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08 },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0, x: -20 },
+  show: { opacity: 1, x: 0 },
+}
+
 export function Experience() {
   return (
     <section id="experiencia" className="relative px-6 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <AnimeFadeIn className="mb-16 flex items-center gap-4">
-          <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
-            Experiência
-          </h2>
-          <div className="h-px flex-1 bg-border" />
-        </AnimeFadeIn>
+        <ScrollReveal>
+          <div className="mb-16 flex items-center gap-4">
+            <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
+              Experiência
+            </h2>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        </ScrollReveal>
 
-        <div className="relative">
+        <motion.div
+          className="relative flex flex-col gap-12"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {/* Timeline line */}
           <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border md:left-[calc(200px+7px)]" />
 
-          <AnimeStaggerIn className="flex flex-col gap-12" staggerDelay={60}>
-            {experiences.map((exp) => (
-              <div key={`${exp.company}-${exp.period}`} className="group relative flex flex-col gap-4 md:flex-row">
+          {experiences.map((exp) => (
+            <motion.div
+              key={`${exp.company}-${exp.period}`}
+              variants={item}
+              className="group relative flex flex-col gap-4 md:flex-row"
+            >
               {/* Period */}
               <div className="flex-shrink-0 md:w-[200px]">
                 <span className="font-mono text-xs text-muted-foreground">
@@ -108,10 +132,9 @@ export function Experience() {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-          </AnimeStaggerIn>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

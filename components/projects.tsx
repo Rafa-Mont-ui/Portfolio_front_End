@@ -1,8 +1,8 @@
 "use client"
 
+import { motion } from "framer-motion"
 import { ExternalLink, Github } from "lucide-react"
-import { AnimeFadeIn } from "@/components/ui/anime-fade-in"
-import { AnimeStaggerIn } from "@/components/ui/anime-stagger-in"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
 
 const projects = [
   {
@@ -30,18 +30,21 @@ export function Projects() {
       <div className="pointer-events-none absolute left-0 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-neon/3 blur-[128px]" />
 
       <div className="relative mx-auto max-w-6xl">
-        <AnimeFadeIn className="mb-16 flex items-center gap-4">
-          <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
-            Projetos
-          </h2>
-          <div className="h-px flex-1 bg-border" />
-        </AnimeFadeIn>
+        <ScrollReveal>
+          <div className="mb-16 flex items-center gap-4">
+            <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
+              Projetos
+            </h2>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        </ScrollReveal>
 
-        <AnimeStaggerIn className="grid gap-6 md:grid-cols-2" staggerDelay={100}>
-          {projects.map((project) => (
-            <article
-              key={project.title}
-              className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-all hover:scale-[1.02] hover:border-primary/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.06)]"
+        <div className="grid gap-6 md:grid-cols-2">
+          {projects.map((project, index) => (
+            <ScrollReveal key={project.title} delay={index * 0.1}>
+            <motion.article
+              className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.06)]"
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
               <div className="mb-4 flex items-start justify-between">
                 <h3 className="text-lg font-semibold text-foreground">
@@ -83,9 +86,10 @@ export function Projects() {
                   </span>
                 ))}
               </div>
-            </article>
+            </motion.article>
+            </ScrollReveal>
           ))}
-        </AnimeStaggerIn>
+        </div>
       </div>
     </section>
   )

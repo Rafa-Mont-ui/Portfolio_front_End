@@ -1,8 +1,8 @@
 "use client"
 
+import { motion } from "framer-motion"
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
-import { animate, stagger } from "animejs"
+import { useEffect, useState } from "react"
 
 const GLITCH_CHARS = "0123456789@#$%&*"
 
@@ -59,38 +59,6 @@ function useGlitchText(
 export function Hero() {
   const badgeText = useGlitchText("Disponivel para novos projetos")
   const frontEndText = useGlitchText("Front-End", { initialDelay: 800, pauseDuration: 2500 })
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    const elements = container.querySelectorAll("[data-hero-animate]")
-    elements.forEach((el) => {
-      const htmlEl = el as HTMLElement
-      htmlEl.style.opacity = "0"
-      htmlEl.style.transform = "translateY(20px)"
-    })
-
-    animate(elements, {
-      opacity: { from: 0, to: 1 },
-      translateY: { from: 20, to: 0 },
-      duration: 500,
-      delay: stagger(120, { start: 200 }),
-      ease: "out(3)",
-    })
-
-    const scrollIndicator = container.querySelector("[data-hero-scroll]") as HTMLElement
-    if (scrollIndicator) {
-      scrollIndicator.style.opacity = "0"
-      animate(scrollIndicator, {
-        opacity: { from: 0, to: 1 },
-        duration: 600,
-        delay: 1200,
-        ease: "out(3)",
-      })
-    }
-  }, [])
 
   return (
     <section
@@ -103,10 +71,17 @@ export function Hero() {
         <div className="absolute right-1/4 bottom-1/4 h-64 w-64 rounded-full bg-neon-dim/5 blur-[96px]" />
       </div>
 
-      <div ref={containerRef} className="relative z-10 mx-auto max-w-4xl text-center">
-        <div
-          data-hero-animate
+      <motion.div
+        className="relative z-10 mx-auto max-w-4xl text-center"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+      >
+        <motion.div
           className="mb-6 inline-block rounded-full border border-border bg-secondary/50 px-4 py-1.5"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
           <span
             className="text-xs text-primary"
@@ -114,11 +89,13 @@ export function Hero() {
           >
             {badgeText}
           </span>
-        </div>
+        </motion.div>
 
-        <h1
-          data-hero-animate
+        <motion.h1
           className="mb-6 text-balance text-5xl font-bold leading-tight tracking-tight text-foreground md:text-7xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           Desenvolvedor{" "}
           <span
@@ -130,18 +107,25 @@ export function Hero() {
           >
             {frontEndText}
           </span>
-        </h1>
+        </motion.h1>
 
-        <p
-          data-hero-animate
+        <motion.p
           className="mx-auto mb-10 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
         >
           Construo interfaces modernas, acessíveis e de alta performance.
           Especializado em transformar ideias em experiências digitais que
           encantam usuários e entregam resultados.
-        </p>
+        </motion.p>
 
-        <div data-hero-animate className="mb-16 flex items-center justify-center gap-4">
+        <motion.div
+          className="mb-16 flex items-center justify-center gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+        >
           <a
             href="#projetos"
             className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:shadow-[0_0_24px_rgba(0,212,255,0.3)]"
@@ -154,10 +138,15 @@ export function Hero() {
           >
             Fale Comigo
           </a>
-        </div>
+        </motion.div>
 
         {/* Social links */}
-        <div data-hero-animate className="flex items-center justify-center gap-6">
+        <motion.div
+          className="flex items-center justify-center gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
+        >
           <a
             href="https://github.com/Rafa-Mont-ui"
             target="_blank"
@@ -183,13 +172,13 @@ export function Hero() {
           >
             <Mail className="h-5 w-5" />
           </a>
-        </div>
+        </motion.div>
 
         {/* Scroll indicator */}
-        <div data-hero-scroll className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <ArrowDown className="h-5 w-5 animate-bounce text-muted-foreground" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <ArrowDown className="h-5 w-5 text-muted-foreground" />
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }
