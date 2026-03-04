@@ -1,5 +1,13 @@
 const experiences = [
   {
+    period: "2026 — Presente",
+    role: "Desenvolvedor Web",
+    company: "Larafy",
+    description:
+      "Desenvolvimento de interfaces e aplicações web. Atuação em projetos de front-end com foco em experiência do usuário e qualidade de código.",
+    techs: ["React", "TypeScript", "Front-End"],
+  },
+  {
     period: "Dez 2025 — Presente",
     role: "Estagiário de Desenvolvimento Web",
     company: "JVM Webmarketing",
