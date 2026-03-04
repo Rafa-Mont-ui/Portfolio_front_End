@@ -2,36 +2,20 @@ import { ExternalLink, Github } from "lucide-react"
 
 const projects = [
   {
-    title: "E-Commerce Platform",
+    title: "VitaSlim",
     description:
-      "Plataforma completa de e-commerce com carrinho, pagamento e dashboard administrativo. Construida com Next.js e Stripe.",
-    techs: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
-    github: "https://github.com",
-    live: "https://example.com",
+      "Landing page VSL (Video Sales Letter) com produtos, depoimentos e planos. Projeto de teste front-end com foco em conversão e experiência do usuário.",
+    techs: ["TypeScript", "React", "Tailwind CSS"],
+    github: "https://github.com/Rafa-Mont-ui/Site-VSL-Teste-Grupo-Six",
+    live: "https://site-vsl-teste-grupo-six.vercel.app/",
   },
   {
-    title: "Dashboard Analytics",
+    title: "Lista de Compras",
     description:
-      "Dashboard interativo para visualizacao de dados em tempo real com graficos dinamicos e filtros avancados.",
-    techs: ["React", "D3.js", "Node.js", "WebSocket"],
-    github: "https://github.com",
-    live: "https://example.com",
-  },
-  {
-    title: "Social App",
-    description:
-      "Aplicativo social com feed em tempo real, sistema de mensagens e notificacoes push. Interface responsiva e acessivel.",
-    techs: ["Vue.js", "Firebase", "Tailwind CSS", "PWA"],
-    github: "https://github.com",
-    live: "https://example.com",
-  },
-  {
-    title: "Design System",
-    description:
-      "Biblioteca de componentes reutilizaveis com documentacao completa no Storybook. Usado em mais de 10 projetos internos.",
-    techs: ["React", "Storybook", "TypeScript", "CSS Modules"],
-    github: "https://github.com",
-    live: "https://example.com",
+      "Checklist de mercado interativo para organizar suas compras. Aplicação prática para gerenciar itens do dia a dia.",
+    techs: ["TypeScript", "React"],
+    github: "https://github.com/Rafa-Mont-ui/Lista-Mercado-v1",
+    live: "https://lista-mercado-v1.vercel.app/",
   },
 ]
 
