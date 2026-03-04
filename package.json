@@ -5,9 +5,6 @@
   "engines": {
     "node": ">=18.17.0"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": ["sharp"]
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
