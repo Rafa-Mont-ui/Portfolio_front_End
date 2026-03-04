@@ -1,7 +1,7 @@
 "use client"
 
-import { FadeIn } from "@/components/ui/fade-in"
-import { motion } from "framer-motion"
+import { AnimeFadeIn } from "@/components/ui/anime-fade-in"
+import { AnimeStaggerIn } from "@/components/ui/anime-stagger-in"
 
 const experiences = [
   {
@@ -58,26 +58,20 @@ export function Experience() {
   return (
     <section id="experiencia" className="relative px-6 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <FadeIn className="mb-16 flex items-center gap-4">
+        <AnimeFadeIn className="mb-16 flex items-center gap-4">
           <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
             Experiência
           </h2>
           <div className="h-px flex-1 bg-border" />
-        </FadeIn>
+        </AnimeFadeIn>
 
-        <div className="relative flex flex-col gap-12">
+        <div className="relative">
           {/* Timeline line */}
           <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border md:left-[calc(200px+7px)]" />
 
-          {experiences.map((exp, i) => (
-            <motion.div
-              key={`${exp.company}-${exp.period}`}
-              className="group relative flex flex-col gap-4 md:flex-row"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.25, 0.4, 0.25, 1] }}
-            >
+          <AnimeStaggerIn className="flex flex-col gap-12" staggerDelay={60}>
+            {experiences.map((exp) => (
+              <div key={`${exp.company}-${exp.period}`} className="group relative flex flex-col gap-4 md:flex-row">
               {/* Period */}
               <div className="flex-shrink-0 md:w-[200px]">
                 <span className="font-mono text-xs text-muted-foreground">
@@ -114,8 +108,9 @@ export function Experience() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
+          </AnimeStaggerIn>
         </div>
       </div>
     </section>

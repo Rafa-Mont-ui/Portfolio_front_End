@@ -1,8 +1,8 @@
 "use client"
 
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
+import { animate, stagger } from "animejs"
 
 const GLITCH_CHARS = "0123456789@#$%&*"
 
@@ -59,6 +59,38 @@ function useGlitchText(
 export function Hero() {
   const badgeText = useGlitchText("Disponivel para novos projetos")
   const frontEndText = useGlitchText("Front-End", { initialDelay: 800, pauseDuration: 2500 })
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const elements = container.querySelectorAll("[data-hero-animate]")
+    elements.forEach((el) => {
+      const htmlEl = el as HTMLElement
+      htmlEl.style.opacity = "0"
+      htmlEl.style.transform = "translateY(20px)"
+    })
+
+    animate(elements, {
+      opacity: { from: 0, to: 1 },
+      translateY: { from: 20, to: 0 },
+      duration: 500,
+      delay: stagger(120, { start: 200 }),
+      ease: "out(3)",
+    })
+
+    const scrollIndicator = container.querySelector("[data-hero-scroll]") as HTMLElement
+    if (scrollIndicator) {
+      scrollIndicator.style.opacity = "0"
+      animate(scrollIndicator, {
+        opacity: { from: 0, to: 1 },
+        duration: 600,
+        delay: 1200,
+        ease: "out(3)",
+      })
+    }
+  }, [])
 
   return (
     <section
@@ -71,22 +103,10 @@ export function Hero() {
         <div className="absolute right-1/4 bottom-1/4 h-64 w-64 rounded-full bg-neon-dim/5 blur-[96px]" />
       </div>
 
-      <motion.div
-        className="relative z-10 mx-auto max-w-4xl text-center"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
-          hidden: {},
-        }}
-      >
-        <motion.div
+      <div ref={containerRef} className="relative z-10 mx-auto max-w-4xl text-center">
+        <div
+          data-hero-animate
           className="mb-6 inline-block rounded-full border border-border bg-secondary/50 px-4 py-1.5"
-          variants={{
-            visible: { opacity: 1, y: 0 },
-            hidden: { opacity: 0, y: 20 },
-          }}
-          transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
         >
           <span
             className="text-xs text-primary"
@@ -94,15 +114,11 @@ export function Hero() {
           >
             {badgeText}
           </span>
-        </motion.div>
+        </div>
 
-        <motion.h1
+        <h1
+          data-hero-animate
           className="mb-6 text-balance text-5xl font-bold leading-tight tracking-tight text-foreground md:text-7xl"
-          variants={{
-            visible: { opacity: 1, y: 0 },
-            hidden: { opacity: 0, y: 24 },
-          }}
-          transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
         >
           Desenvolvedor{" "}
           <span
@@ -114,29 +130,18 @@ export function Hero() {
           >
             {frontEndText}
           </span>
-        </motion.h1>
+        </h1>
 
-        <motion.p
+        <p
+          data-hero-animate
           className="mx-auto mb-10 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl"
-          variants={{
-            visible: { opacity: 1, y: 0 },
-            hidden: { opacity: 0, y: 20 },
-          }}
-          transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
         >
           Construo interfaces modernas, acessíveis e de alta performance.
           Especializado em transformar ideias em experiências digitais que
           encantam usuários e entregam resultados.
-        </motion.p>
+        </p>
 
-        <motion.div
-          className="mb-16 flex items-center justify-center gap-4"
-          variants={{
-            visible: { opacity: 1, y: 0 },
-            hidden: { opacity: 0, y: 20 },
-          }}
-          transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
-        >
+        <div data-hero-animate className="mb-16 flex items-center justify-center gap-4">
           <a
             href="#projetos"
             className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:shadow-[0_0_24px_rgba(0,212,255,0.3)]"
@@ -149,17 +154,10 @@ export function Hero() {
           >
             Fale Comigo
           </a>
-        </motion.div>
+        </div>
 
         {/* Social links */}
-        <motion.div
-          className="flex items-center justify-center gap-6"
-          variants={{
-            visible: { opacity: 1, y: 0 },
-            hidden: { opacity: 0, y: 16 },
-          }}
-          transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
-        >
+        <div data-hero-animate className="flex items-center justify-center gap-6">
           <a
             href="https://github.com/Rafa-Mont-ui"
             target="_blank"
@@ -185,18 +183,13 @@ export function Hero() {
           >
             <Mail className="h-5 w-5" />
           </a>
-        </motion.div>
+        </div>
 
         {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-        >
+        <div data-hero-scroll className="absolute bottom-8 left-1/2 -translate-x-1/2">
           <ArrowDown className="h-5 w-5 animate-bounce text-muted-foreground" />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   )
 }

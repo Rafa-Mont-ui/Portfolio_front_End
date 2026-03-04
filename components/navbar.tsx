@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Menu, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { animate } from "animejs"
 
 const navLinks = [
   { label: "Sobre", href: "#sobre" },
@@ -15,12 +15,23 @@ const navLinks = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
+  const headerRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const header = headerRef.current
+    if (!header) return
+    header.style.transform = "translateY(-100%)"
+    animate(header, {
+      translateY: { from: "-100%", to: 0 },
+      duration: 500,
+      ease: "out(3)",
+    })
+  }, [])
+
   return (
-    <motion.header
+    <header
+      ref={headerRef}
       className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a
@@ -55,17 +66,10 @@ export function Navbar() {
       </nav>
 
       {/* Mobile menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="border-t border-border/50 bg-background/95 backdrop-blur-xl md:hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <ul className="flex flex-col gap-1 px-6 py-4">
-              {navLinks.map((link) => (
+      {isOpen && (
+        <div className="border-t border-border/50 bg-background/95 backdrop-blur-xl md:hidden">
+          <ul className="flex flex-col gap-1 px-6 py-4">
+            {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
@@ -74,12 +78,11 @@ export function Navbar() {
                 >
                   {link.label}
                 </a>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </header>
   )
 }

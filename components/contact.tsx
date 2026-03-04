@@ -1,8 +1,7 @@
 "use client"
 
 import { Github, Linkedin, Mail, Send } from "lucide-react"
-import { FadeIn } from "@/components/ui/fade-in"
-import { motion } from "framer-motion"
+import { AnimeFadeIn } from "@/components/ui/anime-fade-in"
 
 export function Contact() {
   return (
@@ -11,20 +10,15 @@ export function Contact() {
       <div className="pointer-events-none absolute right-0 bottom-0 h-96 w-96 rounded-full bg-neon-dim/5 blur-[128px]" />
 
       <div className="relative mx-auto max-w-6xl">
-        <FadeIn className="mb-16 flex items-center gap-4">
+        <AnimeFadeIn className="mb-16 flex items-center gap-4">
           <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
             Contato
           </h2>
           <div className="h-px flex-1 bg-border" />
-        </FadeIn>
+        </AnimeFadeIn>
 
         <div className="grid gap-12 md:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
-          >
+          <AnimeFadeIn direction="left" amount={0.2}>
             <h3 className="mb-4 text-3xl font-bold text-foreground">
               Vamos trabalhar juntos?
             </h3>
@@ -61,12 +55,13 @@ export function Contact() {
                 <span className="text-sm">linkedin.com/in/seuuser</span>
               </a>
             </div>
-          </motion.div>
+          </AnimeFadeIn>
 
-          <motion.form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col gap-4"
-          >
+          <AnimeFadeIn direction="right" amount={0.2}>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="flex flex-col gap-4"
+            >
             <div>
               <label
                 htmlFor="name"
@@ -116,7 +111,8 @@ export function Contact() {
               <Send className="h-4 w-4" />
               Enviar Mensagem
             </button>
-          </motion.form>
+            </form>
+          </AnimeFadeIn>
         </div>
       </div>
     </section>
