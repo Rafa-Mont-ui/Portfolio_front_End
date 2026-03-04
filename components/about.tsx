@@ -12,20 +12,19 @@ export function About() {
         <div className="grid gap-12 md:grid-cols-2">
           <div>
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
-              Sou um desenvolvedor front-end com paixao por criar interfaces
-              bonitas e funcionais. Com anos de experiencia construindo
-              aplicacoes web, domino as tecnologias mais modernas do ecossistema
-              JavaScript.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris.
             </p>
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
-              Meu foco principal esta na intersecao entre design e engenharia,
-              criando experiencias que nao apenas funcionam perfeitamente, mas
-              que encantam os usuarios em cada interacao.
+              Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+              cupidatat non proident, sunt in culpa qui officia deserunt mollit.
             </p>
             <p className="text-lg leading-relaxed text-muted-foreground">
-              Quando nao estou codando, voce pode me encontrar explorando novas
-              tecnologias, contribuindo para projetos open source ou
-              compartilhando conhecimento com a comunidade dev.
+              Nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum
+              iure reprehenderit qui in ea voluptate velit esse quam nihil
+              molestiae consequatur.
             </p>
           </div>
 
