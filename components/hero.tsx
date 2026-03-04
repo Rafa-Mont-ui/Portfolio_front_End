@@ -94,9 +94,9 @@ export function Hero() {
         </h1>
 
         <p className="mx-auto mb-10 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-          Construo interfaces modernas, acessiveis e de alta performance.
-          Apaixonado por transformar ideias em experiencias digitais
-          extraordinarias.
+          Construo interfaces modernas, acessíveis e de alta performance.
+          Especializado em transformar ideias em experiências digitais que
+          encantam usuários e entregam resultados.
         </p>
 
         <div className="mb-16 flex items-center justify-center gap-4">
@@ -117,7 +117,7 @@ export function Hero() {
         {/* Social links */}
         <div className="flex items-center justify-center gap-6">
           <a
-            href="https://github.com"
+            href="https://github.com/Rafa-Mont-ui"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground transition-colors hover:text-primary"
@@ -126,7 +126,7 @@ export function Hero() {
             <Github className="h-5 w-5" />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/rafael-fernando-franco-monteiro-a2b252213/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground transition-colors hover:text-primary"
