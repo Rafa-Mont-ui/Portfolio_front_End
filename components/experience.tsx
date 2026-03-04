@@ -1,3 +1,8 @@
+"use client"
+
+import { FadeIn } from "@/components/ui/fade-in"
+import { motion } from "framer-motion"
+
 const experiences = [
   {
     period: "2026 — Presente",
@@ -8,7 +13,7 @@ const experiences = [
     techs: ["React", "TypeScript", "Front-End"],
   },
   {
-    period: "Dez 2025 — Presente",
+    period: "Dez 2025 — Jan 2026",
     role: "Estagiário de Desenvolvimento Web",
     company: "JVM Webmarketing",
     description:
@@ -53,19 +58,26 @@ export function Experience() {
   return (
     <section id="experiencia" className="relative px-6 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-16 flex items-center gap-4">
+        <FadeIn className="mb-16 flex items-center gap-4">
           <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
             Experiência
           </h2>
           <div className="h-px flex-1 bg-border" />
-        </div>
+        </FadeIn>
 
         <div className="relative flex flex-col gap-12">
           {/* Timeline line */}
           <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border md:left-[calc(200px+7px)]" />
 
-          {experiences.map((exp) => (
-            <div key={`${exp.company}-${exp.period}`} className="group relative flex flex-col gap-4 md:flex-row">
+          {experiences.map((exp, i) => (
+            <motion.div
+              key={`${exp.company}-${exp.period}`}
+              className="group relative flex flex-col gap-4 md:flex-row"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.25, 0.4, 0.25, 1] }}
+            >
               {/* Period */}
               <div className="flex-shrink-0 md:w-[200px]">
                 <span className="font-mono text-xs text-muted-foreground">
@@ -102,7 +114,7 @@ export function Experience() {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
