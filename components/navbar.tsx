@@ -58,11 +58,11 @@ export function Navbar() {
       <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="border-t border-border/50 bg-background/95 backdrop-blur-xl md:hidden"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
+          className="border-t border-border/50 bg-background/95 backdrop-blur-xl md:hidden overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
         >
           <ul className="flex flex-col gap-1 px-6 py-4">
             {navLinks.map((link) => (
