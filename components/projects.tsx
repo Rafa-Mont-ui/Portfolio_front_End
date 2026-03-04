@@ -1,4 +1,8 @@
+"use client"
+
 import { ExternalLink, Github } from "lucide-react"
+import { FadeIn } from "@/components/ui/fade-in"
+import { motion } from "framer-motion"
 
 const projects = [
   {
@@ -26,18 +30,32 @@ export function Projects() {
       <div className="pointer-events-none absolute left-0 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-neon/3 blur-[128px]" />
 
       <div className="relative mx-auto max-w-6xl">
-        <div className="mb-16 flex items-center gap-4">
+        <FadeIn className="mb-16 flex items-center gap-4">
           <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
             Projetos
           </h2>
           <div className="h-px flex-1 bg-border" />
-        </div>
+        </FadeIn>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <motion.div
+          className="grid gap-6 md:grid-cols-2"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.15 } },
+            hidden: {},
+          }}
+        >
           {projects.map((project) => (
-            <article
+            <motion.article
               key={project.title}
-              className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.06)]"
+              className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-all hover:scale-[1.02] hover:border-primary/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.06)]"
+              variants={{
+                visible: { opacity: 1, y: 0 },
+                hidden: { opacity: 0, y: 40 },
+              }}
+              transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
             >
               <div className="mb-4 flex items-start justify-between">
                 <h3 className="text-lg font-semibold text-foreground">
@@ -79,9 +97,9 @@ export function Projects() {
                   </span>
                 ))}
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
