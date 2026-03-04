@@ -1,5 +1,8 @@
 "use client"
 
+import { motion } from "framer-motion"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
+
 const skills = [
   {
     category: "Front-End",
@@ -19,22 +22,45 @@ const skills = [
   },
 ]
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+}
+
 export function Skills() {
   return (
     <section id="habilidades" className="relative px-6 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-16 flex items-center gap-4">
-          <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
-            Habilidades
-          </h2>
-          <div className="h-px flex-1 bg-border" />
-        </div>
+        <ScrollReveal>
+          <div className="mb-16 flex items-center gap-4">
+            <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
+              Habilidades
+            </h2>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        </ScrollReveal>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <motion.div
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {skills.map((group) => (
-            <div
+            <motion.div
               key={group.category}
+              variants={item}
               className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_24px_rgba(0,212,255,0.06)]"
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
             >
               <h3 className="mb-4 font-mono text-xs font-semibold uppercase tracking-wider text-primary">
                 {group.category}
@@ -50,9 +76,9 @@ export function Skills() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

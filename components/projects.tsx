@@ -1,37 +1,25 @@
+"use client"
+
+import { motion } from "framer-motion"
 import { ExternalLink, Github } from "lucide-react"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
 
 const projects = [
   {
-    title: "E-Commerce Platform",
+    title: "VitaSlim",
     description:
-      "Plataforma completa de e-commerce com carrinho, pagamento e dashboard administrativo. Construida com Next.js e Stripe.",
-    techs: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
-    github: "https://github.com",
-    live: "https://example.com",
+      "Landing page VSL (Video Sales Letter) com produtos, depoimentos e planos. Projeto de teste front-end com foco em conversão e experiência do usuário.",
+    techs: ["TypeScript", "React", "Tailwind CSS"],
+    github: "https://github.com/Rafa-Mont-ui/Site-VSL-Teste-Grupo-Six",
+    live: "https://site-vsl-teste-grupo-six.vercel.app/",
   },
   {
-    title: "Dashboard Analytics",
+    title: "Lista de Compras",
     description:
-      "Dashboard interativo para visualizacao de dados em tempo real com graficos dinamicos e filtros avancados.",
-    techs: ["React", "D3.js", "Node.js", "WebSocket"],
-    github: "https://github.com",
-    live: "https://example.com",
-  },
-  {
-    title: "Social App",
-    description:
-      "Aplicativo social com feed em tempo real, sistema de mensagens e notificacoes push. Interface responsiva e acessivel.",
-    techs: ["Vue.js", "Firebase", "Tailwind CSS", "PWA"],
-    github: "https://github.com",
-    live: "https://example.com",
-  },
-  {
-    title: "Design System",
-    description:
-      "Biblioteca de componentes reutilizaveis com documentacao completa no Storybook. Usado em mais de 10 projetos internos.",
-    techs: ["React", "Storybook", "TypeScript", "CSS Modules"],
-    github: "https://github.com",
-    live: "https://example.com",
+      "Checklist de mercado interativo para organizar suas compras. Aplicação prática para gerenciar itens do dia a dia.",
+    techs: ["TypeScript", "React"],
+    github: "https://github.com/Rafa-Mont-ui/Lista-Mercado-v1",
+    live: "https://lista-mercado-v1.vercel.app/",
   },
 ]
 
@@ -42,18 +30,21 @@ export function Projects() {
       <div className="pointer-events-none absolute left-0 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-neon/3 blur-[128px]" />
 
       <div className="relative mx-auto max-w-6xl">
-        <div className="mb-16 flex items-center gap-4">
-          <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
-            Projetos
-          </h2>
-          <div className="h-px flex-1 bg-border" />
-        </div>
+        <ScrollReveal>
+          <div className="mb-16 flex items-center gap-4">
+            <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
+              Projetos
+            </h2>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        </ScrollReveal>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((project) => (
-            <article
-              key={project.title}
+          {projects.map((project, index) => (
+            <ScrollReveal key={project.title} delay={index * 0.1}>
+            <motion.article
               className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.06)]"
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
               <div className="mb-4 flex items-start justify-between">
                 <h3 className="text-lg font-semibold text-foreground">
@@ -95,7 +86,8 @@ export function Projects() {
                   </span>
                 ))}
               </div>
-            </article>
+            </motion.article>
+            </ScrollReveal>
           ))}
         </div>
       </div>

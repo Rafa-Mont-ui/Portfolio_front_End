@@ -1,6 +1,8 @@
 "use client"
 
+import { motion } from "framer-motion"
 import { Github, Linkedin, Mail, Send } from "lucide-react"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
 
 export function Contact() {
   return (
@@ -9,14 +11,17 @@ export function Contact() {
       <div className="pointer-events-none absolute right-0 bottom-0 h-96 w-96 rounded-full bg-neon-dim/5 blur-[128px]" />
 
       <div className="relative mx-auto max-w-6xl">
-        <div className="mb-16 flex items-center gap-4">
-          <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
-            Contato
-          </h2>
-          <div className="h-px flex-1 bg-border" />
-        </div>
+        <ScrollReveal>
+          <div className="mb-16 flex items-center gap-4">
+            <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
+              Contato
+            </h2>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+        </ScrollReveal>
 
         <div className="grid gap-12 md:grid-cols-2">
+          <ScrollReveal delay={0.1}>
           <div>
             <h3 className="mb-4 text-3xl font-bold text-foreground">
               Vamos trabalhar juntos?
@@ -55,7 +60,9 @@ export function Contact() {
               </a>
             </div>
           </div>
+          </ScrollReveal>
 
+          <ScrollReveal delay={0.2}>
           <form
             onSubmit={(e) => e.preventDefault()}
             className="flex flex-col gap-4"
@@ -110,6 +117,7 @@ export function Contact() {
               Enviar Mensagem
             </button>
           </form>
+          </ScrollReveal>
         </div>
       </div>
     </section>
