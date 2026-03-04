@@ -1,27 +1,43 @@
 const experiences = [
   {
-    period: "2023 — Presente",
-    role: "Desenvolvedor Front-End Senior",
-    company: "TechCorp",
+    period: "Dez 2025 — Presente",
+    role: "Estagiário de Desenvolvimento Web",
+    company: "JVM Webmarketing",
     description:
-      "Lideranca tecnica do time de front-end, definindo arquitetura e padroes de codigo. Migracao de aplicacao legada para Next.js com melhoria de 40% na performance.",
-    techs: ["React", "Next.js", "TypeScript", "GraphQL"],
+      "Desenvolvimento de páginas web utilizando React, TypeScript e Styled Components. Atuação na área de engenharia e suporte técnico.",
+    techs: ["React", "TypeScript", "Styled Components"],
   },
   {
-    period: "2021 — 2023",
-    role: "Desenvolvedor Front-End Pleno",
-    company: "StartupX",
+    period: "Jun 2025 — Ago 2025",
+    role: "Analista Web Design Junior",
+    company: "Groner",
     description:
-      "Desenvolvimento de features criticas para o produto principal da startup. Implementacao de design system usado por toda a equipe de engenharia.",
-    techs: ["Vue.js", "Nuxt", "Tailwind CSS", "Jest"],
+      "Desenvolvimento de propostas comerciais através do GrapesJS usando HTML, CSS e JavaScript. Criação visual das propostas através do Figma.",
+    techs: ["HTML", "CSS", "JavaScript", "GrapesJS", "Figma"],
   },
   {
-    period: "2019 — 2021",
-    role: "Desenvolvedor Front-End Junior",
-    company: "AgenciaDev",
+    period: "Jul 2024 — Out 2024",
+    role: "Analista de Suporte N1",
+    company: "Connect Trust Tecnologia",
     description:
-      "Criacao de landing pages e interfaces para diversos clientes. Primeiro contato com React e construcao de SPAs modernas.",
-    techs: ["React", "JavaScript", "SASS", "WordPress"],
+      "Atendimento remoto a clientes, configuração de certificados digitais, integração de máquinas ao domínio, instalação de softwares e VPN, mapeamento de rede e manutenção de computadores.",
+    techs: ["Suporte Técnico", "Redes", "VPN"],
+  },
+  {
+    period: "Abr 2024 — Mai 2024",
+    role: "Arte Finalista",
+    company: "DPM Digital",
+    description:
+      "Criação de artes, refile de materiais impressos e atendimento ao cliente. Experiência em comunicação visual e gráfica.",
+    techs: ["Design Gráfico", "InDesign", "Photoshop"],
+  },
+  {
+    period: "Ago 2022 — Dez 2022",
+    role: "Estagiário de Design",
+    company: "Inspira Rede de Educadores",
+    description:
+      "Diagramação de provas no InDesign, tratamento de imagens no Photoshop e organização de documentos digitais.",
+    techs: ["InDesign", "Photoshop", "Design"],
   },
 ]
 
@@ -31,7 +47,7 @@ export function Experience() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 flex items-center gap-4">
           <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
-            Experiencia
+            Experiência
           </h2>
           <div className="h-px flex-1 bg-border" />
         </div>
@@ -41,7 +57,7 @@ export function Experience() {
           <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border md:left-[calc(200px+7px)]" />
 
           {experiences.map((exp) => (
-            <div key={exp.period} className="group relative flex flex-col gap-4 md:flex-row">
+            <div key={`${exp.company}-${exp.period}`} className="group relative flex flex-col gap-4 md:flex-row">
               {/* Period */}
               <div className="flex-shrink-0 md:w-[200px]">
                 <span className="font-mono text-xs text-muted-foreground">
