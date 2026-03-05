@@ -28,7 +28,7 @@ export function About() {
           </div>
         </ScrollReveal>
 
-        <div className="grid gap-12 lg:grid-cols-[1fr_280px] lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <ScrollReveal delay={0.1}>
             <div className="rounded-2xl border border-border bg-card/50 p-6 backdrop-blur-sm md:p-8">
               <div className="space-y-6">
@@ -57,33 +57,15 @@ export function About() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.2}>
-            <div className="flex items-center justify-center lg:justify-end">
-              <motion.div
-                className="relative flex h-72 w-72 flex-col items-center justify-center rounded-2xl border border-primary/20 bg-card/80 p-8 shadow-[0_0_40px_-10px_rgba(0,212,255,0.15)] backdrop-blur-sm md:h-80 md:w-80"
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 0 50px -10px rgba(0, 212, 255, 0.25)",
-                  borderColor: "rgba(0, 212, 255, 0.4)",
-                }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                {/* Corner accent */}
-                <div className="absolute right-4 top-4 h-8 w-8 rounded-tr-lg border-r-2 border-t-2 border-primary/40" />
-                <div className="absolute bottom-4 left-4 h-8 w-8 rounded-bl-lg border-b-2 border-l-2 border-primary/40" />
-                <div className="text-center">
-                  <span
-                    className="font-mono text-7xl font-bold text-primary md:text-8xl"
-                    style={{ textShadow: "0 0 40px rgba(0, 212, 255, 0.4)" }}
-                  >
-                    5+
-                  </span>
-                  <p className="mt-3 font-mono text-sm uppercase tracking-wider text-muted-foreground">
-                    Anos de experiência
-                  </p>
-                </div>
-              </motion.div>
-            </div>
+          <ScrollReveal delay={0.2} className="min-h-full">
+            <motion.div
+              className="relative h-full min-h-[280px] rounded-2xl border border-primary/20 bg-card/80 shadow-[0_0_40px_-10px_rgba(0,212,255,0.15)] backdrop-blur-sm"
+              whileHover={{
+                boxShadow: "0 0 50px -10px rgba(0, 212, 255, 0.25)",
+                borderColor: "rgba(0, 212, 255, 0.4)",
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            />
           </ScrollReveal>
         </div>
       </div>
