@@ -58,7 +58,13 @@ export function Projects() {
               className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.06)]"
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
-              <div className="relative aspect-video w-full overflow-hidden bg-secondary/50">
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative block aspect-video w-full overflow-hidden bg-secondary/50"
+                aria-label={`Ver projeto ${project.title}`}
+              >
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -66,7 +72,7 @@ export function Projects() {
                   className="object-cover transition-transform group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-              </div>
+              </a>
               <div className="flex flex-1 flex-col p-6">
               <div className="mb-4 flex items-start justify-between">
                 <h3 className="text-lg font-semibold text-foreground">
