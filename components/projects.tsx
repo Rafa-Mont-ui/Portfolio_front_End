@@ -2,6 +2,7 @@
 
 import { useGlitchText } from "@/hooks/use-glitch-text"
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { ExternalLink, Github } from "lucide-react"
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
 
@@ -13,6 +14,7 @@ const projects = [
     techs: ["TypeScript", "React", "Tailwind CSS"],
     github: "https://github.com/Rafa-Mont-ui/Site-VSL-Teste-Grupo-Six",
     live: "https://site-vsl-teste-grupo-six.vercel.app/",
+    image: "/vitaslim.png",
   },
   {
     title: "Lista de Compras",
@@ -21,6 +23,7 @@ const projects = [
     techs: ["TypeScript", "React"],
     github: "https://github.com/Rafa-Mont-ui/Lista-Mercado-v1",
     live: "https://lista-mercado-v1.vercel.app/",
+    image: "/lista-mercado.png",
   },
 ]
 
@@ -52,9 +55,25 @@ export function Projects() {
           {projects.map((project, index) => (
             <ScrollReveal key={project.title} delay={index * 0.1}>
             <motion.article
-              className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.06)]"
+              className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.06)]"
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative block aspect-video w-full overflow-hidden bg-secondary/50"
+                aria-label={`Ver projeto ${project.title}`}
+              >
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </a>
+              <div className="flex flex-1 flex-col p-6">
               <div className="mb-4 flex items-start justify-between">
                 <h3 className="text-lg font-semibold text-foreground">
                   {project.title}
@@ -94,6 +113,7 @@ export function Projects() {
                     {tech}
                   </span>
                 ))}
+              </div>
               </div>
             </motion.article>
             </ScrollReveal>

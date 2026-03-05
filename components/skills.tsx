@@ -11,7 +11,15 @@ const skills = [
   },
   {
     category: "Ferramentas",
-    items: ["Git", "Figma", "Vite"],
+    items: [
+      "Git",
+      "Figma",
+      "Vite",
+      "GrapesJS",
+      "Photoshop",
+      "WordPress + Elementor",
+      "Adobe Illustrator",
+    ],
   },
 ]
 

@@ -50,22 +50,22 @@ export function Contact() {
                 <span className="text-sm">dev@email.com</span>
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/Rafa-Mont-ui"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
               >
                 <Github className="h-5 w-5" />
-                <span className="text-sm">github.com/seuuser</span>
+                <span className="text-sm">github.com/Rafa-Mont-ui</span>
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/rafael-fernando-franco-monteiro-a2b252213/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
               >
                 <Linkedin className="h-5 w-5" />
-                <span className="text-sm">linkedin.com/in/seuuser</span>
+                <span className="text-sm">linkedin.com/in/rafael-fernando-franco-monteiro-a2b252213</span>
               </a>
             </div>
           </div>
