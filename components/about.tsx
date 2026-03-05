@@ -29,19 +29,24 @@ export function About() {
           <ScrollReveal delay={0.1}>
           <div>
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+              Me chamo Rafael Monteiro, tenho 23 anos, e estou trabalhando na
+              área de Web Design. Tenho conhecimento em criação de produto e
+              tudo o que engloba o Design. Atualmente tenho mais experiência em
+              Web Designer/Front-End.
             </p>
             <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia deserunt mollit.
+              Minha trajetória começou no design gráfico, passando por estágios
+              na Inspira Rede de Educadores e na DPM Digital como Arte
+              Finalista. Depois migrei para Web Design na Groner, onde atuei
+              com GrapesJS e Figma. Passei pela JVM Webmarketing como
+              Estagiário de Desenvolvimento Web com React e TypeScript, e hoje
+              atuo como Desenvolvedor Web na Larafy, focando em interfaces e
+              experiência do usuário.
             </p>
             <p className="text-lg leading-relaxed text-muted-foreground">
-              Nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum
-              iure reprehenderit qui in ea voluptate velit esse quam nihil
-              molestiae consequatur.
+              Essa jornada me permitiu unir visão de design com habilidades
+              técnicas de front-end, criando soluções que equilibram estética e
+              funcionalidade.
             </p>
           </div>
           </ScrollReveal>
