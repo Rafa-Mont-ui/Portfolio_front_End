@@ -19,12 +19,12 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 },
+    transition: { staggerChildren: 0.15 },
   },
 }
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0 },
 }
 
@@ -32,8 +32,11 @@ export function Skills() {
   const titleText = useGlitchText("Habilidades", { initialDelay: 1100, pauseDuration: 2500 })
 
   return (
-    <section id="habilidades" className="relative px-6 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl">
+    <section id="habilidades" className="relative overflow-hidden px-6 py-24 md:py-32">
+      {/* Background glow */}
+      <div className="pointer-events-none absolute right-0 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-neon-dim/5 blur-[128px]" />
+
+      <div className="relative mx-auto max-w-6xl">
         <ScrollReveal>
           <div className="mb-16 flex items-center gap-4">
             <h2
@@ -50,7 +53,7 @@ export function Skills() {
         </ScrollReveal>
 
         <motion.div
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-8 md:grid-cols-2"
           variants={container}
           initial="hidden"
           whileInView="show"
@@ -60,23 +63,24 @@ export function Skills() {
             <motion.div
               key={group.category}
               variants={item}
-              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-[0_0_24px_rgba(0,212,255,0.06)]"
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card/50 p-8 backdrop-blur-sm transition-all hover:border-primary/30 hover:shadow-[0_0_40px_-10px_rgba(0,212,255,0.15)]"
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
-              <h3 className="mb-4 font-mono text-xs font-semibold uppercase tracking-wider text-primary">
+              {/* Subtle gradient top accent */}
+              <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <h3 className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-primary">
                 {group.category}
               </h3>
-              <ul className="flex flex-col gap-3">
-                {group.items.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-2 text-sm text-muted-foreground"
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((skill) => (
+                  <span
+                    key={skill}
+                    className="rounded-full border border-primary/20 bg-primary/5 px-4 py-2 font-mono text-sm text-primary transition-colors group-hover:border-primary/40 group-hover:bg-primary/10"
                   >
-                    <span className="h-1 w-1 rounded-full bg-primary" />
-                    {item}
-                  </li>
+                    {skill}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </motion.div>
           ))}
         </motion.div>
