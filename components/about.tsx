@@ -28,7 +28,7 @@ export function About() {
           </div>
         </ScrollReveal>
 
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-[1fr_280px] lg:gap-16">
           <ScrollReveal delay={0.1}>
             <div className="rounded-2xl border border-border bg-card/50 p-6 backdrop-blur-sm md:p-8">
               <div className="space-y-6">
@@ -57,9 +57,9 @@ export function About() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.2} className="min-h-full">
+          <ScrollReveal delay={0.2} className="flex min-h-full">
             <motion.div
-              className="relative h-full min-h-[280px] rounded-2xl border border-primary/20 bg-card/80 shadow-[0_0_40px_-10px_rgba(0,212,255,0.15)] backdrop-blur-sm"
+              className="relative h-full w-full rounded-2xl border border-primary/20 bg-card/80 shadow-[0_0_40px_-10px_rgba(0,212,255,0.15)] backdrop-blur-sm"
               whileHover={{
                 boxShadow: "0 0 50px -10px rgba(0, 212, 255, 0.25)",
                 borderColor: "rgba(0, 212, 255, 0.4)",
