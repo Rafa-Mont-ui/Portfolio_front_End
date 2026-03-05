@@ -32,7 +32,7 @@ export function Skills() {
   const titleText = useGlitchText("Habilidades", { initialDelay: 1100, pauseDuration: 2500 })
 
   return (
-    <section id="habilidades" className="relative overflow-hidden px-6 py-24 md:py-32">
+    <section id="habilidades" className="relative overflow-hidden px-6 py-12 md:py-16">
       {/* Background glow */}
       <div className="pointer-events-none absolute right-0 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-neon-dim/5 blur-[128px]" />
 
