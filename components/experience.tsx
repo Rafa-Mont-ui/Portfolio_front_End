@@ -1,5 +1,6 @@
 "use client"
 
+import { useGlitchText } from "@/hooks/use-glitch-text"
 import { motion } from "framer-motion"
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
 
@@ -68,13 +69,21 @@ const item = {
 }
 
 export function Experience() {
+  const titleText = useGlitchText("Experiência", { initialDelay: 900, pauseDuration: 2500 })
+
   return (
     <section id="experiencia" className="relative px-6 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
         <ScrollReveal>
           <div className="mb-16 flex items-center gap-4">
-            <h2 className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl">
-              Experiência
+            <h2
+              className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl"
+              style={{
+                textShadow: "0 0 40px rgba(0, 212, 255, 0.3)",
+                fontFamily: "var(--font-kode-mono), 'Kode Mono', monospace",
+              }}
+            >
+              {titleText}
             </h2>
             <div className="h-px flex-1 bg-border" />
           </div>
