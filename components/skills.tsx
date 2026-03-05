@@ -11,15 +11,7 @@ const skills = [
   },
   {
     category: "Ferramentas",
-    items: ["Git", "Figma", "Webpack", "Vite", "Docker", "Storybook"],
-  },
-  {
-    category: "Testes",
-    items: ["Jest", "Testing Library", "Cypress", "Playwright", "Vitest"],
-  },
-  {
-    category: "Outros",
-    items: ["Node.js", "REST APIs", "GraphQL", "CI/CD", "Agile"],
+    items: ["Git", "Figma", "Vite"],
   },
 ]
 
