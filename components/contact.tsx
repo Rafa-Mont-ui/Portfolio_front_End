@@ -9,7 +9,7 @@ export function Contact() {
   const titleText = useGlitchText("Contato", { initialDelay: 1200, pauseDuration: 2500 })
 
   return (
-    <section id="contato" className="relative px-6 py-24 md:py-32">
+    <section id="contato" className="relative px-6 py-12 md:py-16">
       {/* Background glow */}
       <div className="pointer-events-none absolute right-0 bottom-0 h-96 w-96 rounded-full bg-neon-dim/5 blur-[128px]" />
 
