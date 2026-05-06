@@ -1,10 +1,10 @@
 "use client"
 
 import { useGlitchText } from "@/hooks/use-glitch-text"
-import { motion } from "framer-motion"
 import Image from "next/image"
 import { ExternalLink, Github } from "lucide-react"
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
+import { TiltCard } from "@/components/ui/tilt-card"
 
 const projects = [
   {
@@ -54,68 +54,69 @@ export function Projects() {
         <div className="grid gap-6 md:grid-cols-2">
           {projects.map((project, index) => (
             <ScrollReveal key={project.title} delay={index * 0.1}>
-            <motion.article
-              className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.06)]"
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            >
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative block aspect-video w-full overflow-hidden bg-secondary/50"
-                aria-label={`Ver projeto ${project.title}`}
+              <TiltCard
+                max={6}
+                scale={1.02}
+                className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-primary/30 hover:shadow-[0_0_30px_rgba(0,212,255,0.08)]"
               >
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </a>
-              <div className="flex flex-1 flex-col p-6">
-              <div className="mb-4 flex items-start justify-between">
-                <h3 className="text-lg font-semibold text-foreground">
-                  {project.title}
-                </h3>
-                <div className="flex items-center gap-3">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground transition-colors hover:text-primary"
-                    aria-label={`GitHub - ${project.title}`}
-                  >
-                    <Github className="h-4 w-4" />
-                  </a>
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground transition-colors hover:text-primary"
-                    aria-label={`Ver projeto - ${project.title}`}
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative block aspect-video w-full overflow-hidden bg-secondary/50"
+                  aria-label={`Ver projeto ${project.title}`}
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </a>
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="mb-4 flex items-start justify-between">
+                    <h3 className="text-lg font-semibold text-foreground">
+                      {project.title}
+                    </h3>
+                    <div className="flex items-center gap-3">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground transition-colors hover:text-primary"
+                        aria-label={`GitHub - ${project.title}`}
+                      >
+                        <Github className="h-4 w-4" />
+                      </a>
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground transition-colors hover:text-primary"
+                        aria-label={`Ver projeto - ${project.title}`}
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </div>
+
+                  <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {project.techs.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 font-mono text-xs text-primary"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-
-              <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
-                {project.description}
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {project.techs.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 font-mono text-xs text-primary"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              </div>
-            </motion.article>
+              </TiltCard>
             </ScrollReveal>
           ))}
         </div>

@@ -1,12 +1,24 @@
 "use client"
 
 import { useGlitchText } from "@/hooks/use-glitch-text"
+import { useTextReveal } from "@/hooks/use-text-reveal"
+import { useParallax } from "@/hooks/use-parallax"
 import { motion } from "framer-motion"
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
 
 export function Hero() {
   const badgeText = useGlitchText("Disponivel para novos projetos")
   const frontEndText = useGlitchText("Front-End", { initialDelay: 800, pauseDuration: 2500 })
+
+  const paragraphRef = useTextReveal<HTMLParagraphElement>({
+    delay: 0.6,
+    stagger: 0.04,
+    duration: 0.8,
+    y: 24,
+    blur: 8,
+  })
+  const blob1Ref = useParallax<HTMLDivElement>({ speed: -160, scale: 1.15 })
+  const blob2Ref = useParallax<HTMLDivElement>({ speed: -90, scale: 1.1 })
 
   return (
     <section
@@ -15,8 +27,14 @@ export function Hero() {
     >
       {/* Neon glow background */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-neon/5 blur-[128px]" />
-        <div className="absolute right-1/4 bottom-1/4 h-64 w-64 rounded-full bg-neon-dim/5 blur-[96px]" />
+        <div
+          ref={blob1Ref}
+          className="absolute left-1/2 top-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-neon/5 blur-[128px]"
+        />
+        <div
+          ref={blob2Ref}
+          className="absolute right-1/4 bottom-1/4 h-64 w-64 rounded-full bg-neon-dim/5 blur-[96px]"
+        />
       </div>
 
       <motion.div
@@ -57,16 +75,14 @@ export function Hero() {
           </span>
         </motion.h1>
 
-        <motion.p
+        <p
+          ref={paragraphRef}
           className="mx-auto mb-10 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
         >
           Construo interfaces modernas, acessíveis e de alta performance.
           Especializado em transformar ideias em experiências digitais que
           encantam usuários e entregam resultados.
-        </motion.p>
+        </p>
 
         <motion.div
           className="mb-16 flex items-center justify-center gap-4"
