@@ -1,73 +1,96 @@
 "use client"
 
-import { useGlitchText } from "@/hooks/use-glitch-text"
-import { motion } from "framer-motion"
+import { useRef } from "react"
+import { gsap } from "gsap"
+import { SplitText } from "gsap/SplitText"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(SplitText, ScrollTrigger)
+}
+
+const facts = [
+  { label: "Base", value: "Brasil" },
+  { label: "Foco", value: "React, Next.js, TypeScript" },
+  { label: "Agora", value: "Desenvolvedor front-end freelancer" },
+  { label: "Origem", value: "Design gráfico → Web design → Front-end" },
+]
+
 export function About() {
-  const titleText = useGlitchText("Sobre mim", { initialDelay: 800, pauseDuration: 2500 })
+  const root = useRef<HTMLElement>(null)
+  const statementRef = useRef<HTMLParagraphElement>(null)
+
+  useGSAP(
+    () => {
+      const el = statementRef.current
+      if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+      const split = SplitText.create(el, { type: "words" })
+      gsap.fromTo(
+        split.words,
+        { opacity: 0.15 },
+        {
+          opacity: 1,
+          stagger: 0.1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+            end: "bottom 45%",
+            scrub: true,
+          },
+        }
+      )
+
+      return () => split.revert()
+    },
+    { scope: root }
+  )
 
   return (
-    <section id="sobre" className="relative overflow-hidden px-6 py-12 md:py-16">
-      {/* Background glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neon/5 blur-[150px]" />
+    <section ref={root} id="sobre" className="px-gutter py-24 md:py-40">
+      <SectionHeading index="01" title="Sobre" />
 
-      <div className="relative mx-auto max-w-6xl">
-        <ScrollReveal>
-          <div className="mb-16 flex items-center gap-4">
-            <h2
-              className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl"
-              style={{
-                textShadow: "0 0 40px rgba(0, 212, 255, 0.3)",
-                fontFamily: "var(--font-kode-mono), 'Kode Mono', monospace",
-              }}
-            >
-              {titleText}
-            </h2>
-            <div className="h-px flex-1 bg-border" />
-          </div>
+      <p
+        ref={statementRef}
+        className="max-w-[22ch] text-balance text-4xl font-medium leading-[1.08] tracking-[-0.03em] md:text-6xl lg:max-w-[24ch] lg:text-7xl"
+      >
+        Venho do design gráfico e hoje escrevo o código das interfaces que desenho: produtos
+        rápidos, acessíveis e com cuidado de pixel.
+      </p>
+
+      <div className="mt-20 grid gap-12 md:mt-32 md:grid-cols-12 md:gap-6">
+        <ScrollReveal className="space-y-5 text-lg leading-relaxed text-muted-foreground md:col-span-5">
+          <p>
+            Me chamo Rafael Monteiro, tenho 24 anos. Comecei como estagiário de design na
+            Inspira Rede de Educadores e arte-finalista na DPM Digital, migrei para web
+            design na Groner, com GrapesJS e Figma, passei pela JVM Webmarketing
+            desenvolvendo com React e TypeScript e fui Desenvolvedor Web na Larafy, onde
+            construí os sites dos produtos de inteligência tributária do grupo.
+          </p>
+          <p>
+            Hoje atuo como{" "}
+            <span className="text-foreground">desenvolvedor front-end freelancer</span>,
+            criando sites e interfaces para empresas e profissionais. Essa trajetória me deixa
+            confortável nos dois lados: falo Figma e TypeScript com a mesma fluência.
+          </p>
         </ScrollReveal>
 
-        <div className="grid gap-12 lg:grid-cols-[1fr_280px] lg:gap-16">
-          <ScrollReveal delay={0.1}>
-            <div className="rounded-2xl border border-border bg-card/50 p-6 backdrop-blur-sm md:p-8">
-              <div className="space-y-6">
-                <p className="text-lg leading-relaxed text-muted-foreground">
-                  Me chamo Rafael Monteiro, tenho 23 anos, e estou trabalhando na
-                  área de Web Design. Tenho conhecimento em criação de produto e
-                  tudo o que engloba o Design. Atualmente tenho mais experiência em
-                  Web Designer/Front-End.
-                </p>
-                <div className="h-px w-12 bg-primary/30" />
-                <p className="text-lg leading-relaxed text-muted-foreground">
-                  Minha trajetória começou no design gráfico, passando por estágios
-                  na Inspira Rede de Educadores e na DPM Digital como Arte
-                  Finalista. Depois migrei para Web Design na Groner, onde atuei
-                  com GrapesJS e Figma. Passei pela JVM Webmarketing como
-                  Estagiário de Desenvolvimento Web com React e TypeScript, e hoje
-                  atuo como Desenvolvedor Web na Larafy, focando em interfaces e
-                  experiência do usuário.
-                </p>
-                <p className="text-lg leading-relaxed text-muted-foreground">
-                  Essa jornada me permitiu unir visão de design com habilidades
-                  técnicas de front-end, criando soluções que equilibram estética e
-                  funcionalidade.
-                </p>
+        <ScrollReveal delay={0.1} className="md:col-span-6 md:col-start-7">
+          <dl className="divide-y divide-border border-y border-border">
+            {facts.map((fact) => (
+              <div key={fact.label} className="grid grid-cols-3 gap-4 py-5">
+                <dt className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {fact.label}
+                </dt>
+                <dd className="col-span-2">{fact.value}</dd>
               </div>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.2} className="flex min-h-full">
-            <motion.div
-              className="relative h-full w-full rounded-2xl border border-primary/20 bg-card/80 shadow-[0_0_40px_-10px_rgba(0,212,255,0.15)] backdrop-blur-sm"
-              whileHover={{
-                boxShadow: "0 0 50px -10px rgba(0, 212, 255, 0.25)",
-                borderColor: "rgba(0, 212, 255, 0.4)",
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            />
-          </ScrollReveal>
-        </div>
+            ))}
+          </dl>
+        </ScrollReveal>
       </div>
     </section>
   )

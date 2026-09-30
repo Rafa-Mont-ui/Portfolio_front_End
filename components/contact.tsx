@@ -1,133 +1,94 @@
 "use client"
 
-import { useGlitchText } from "@/hooks/use-glitch-text"
-import { motion } from "framer-motion"
-import { Github, Linkedin, Mail, Send } from "lucide-react"
+import { useState } from "react"
+import { ArrowUpRight, Check, Copy } from "lucide-react"
+import { MagneticButton } from "@/components/ui/magnetic-button"
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
+import { SectionHeading } from "@/components/ui/section-heading"
+import { site } from "@/lib/site"
 
 export function Contact() {
-  const titleText = useGlitchText("Contato", { initialDelay: 1200, pauseDuration: 2500 })
+  const [copied, setCopied] = useState(false)
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(site.email)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2000)
+    } catch {
+      window.location.href = `mailto:${site.email}`
+    }
+  }
 
   return (
-    <section id="contato" className="relative px-6 py-12 md:py-16">
-      {/* Background glow */}
-      <div className="pointer-events-none absolute right-0 bottom-0 h-96 w-96 rounded-full bg-neon-dim/5 blur-[128px]" />
+    <section id="contato" className="px-gutter pt-24 md:pt-40">
+      <SectionHeading index="05" title="Contato" />
 
-      <div className="relative mx-auto max-w-6xl">
-        <ScrollReveal>
-          <div className="mb-16 flex items-center gap-4">
-            <h2
-              className="font-kode text-lg font-semibold uppercase tracking-widest text-primary md:text-xl"
-              style={{
-                textShadow: "0 0 40px rgba(0, 212, 255, 0.3)",
-                fontFamily: "var(--font-kode-mono), 'Kode Mono', monospace",
-              }}
-            >
-              {titleText}
-            </h2>
-            <div className="h-px flex-1 bg-border" />
-          </div>
+      <ScrollReveal>
+        <p className="text-[17vw] font-medium leading-[0.85] tracking-[-0.05em] md:text-[13vw]">
+          Vamos
+          <br />
+          <span className="font-serif font-normal italic tracking-[-0.02em] text-lime">
+            conversar?
+          </span>
+        </p>
+      </ScrollReveal>
+
+      <div className="mt-16 grid items-end gap-12 md:mt-24 md:grid-cols-12 md:gap-6">
+        <ScrollReveal className="md:col-span-5">
+          <p className="mb-8 text-xl leading-snug text-muted-foreground md:text-2xl">
+            Tem um projeto, uma vaga ou só quer trocar uma ideia sobre front-end? Me manda
+            uma mensagem.
+          </p>
+          <button
+            type="button"
+            onClick={copyEmail}
+            className="group inline-flex items-center gap-3 border-b border-border pb-2 text-lg transition-colors hover:border-lime md:text-2xl"
+            aria-live="polite"
+          >
+            {site.email}
+            {copied ? (
+              <span className="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-lime">
+                <Check className="h-4 w-4" /> Copiado
+              </span>
+            ) : (
+              <Copy className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-lime" />
+            )}
+          </button>
         </ScrollReveal>
 
-        <div className="grid gap-12 md:grid-cols-2">
-          <ScrollReveal delay={0.1}>
-          <div>
-            <h3 className="mb-4 text-3xl font-bold text-foreground">
-              Vamos trabalhar juntos?
-            </h3>
-            <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
-              Estou sempre aberto a novos projetos e oportunidades. Se voce tem
-              uma ideia em mente ou quer bater um papo sobre tecnologia, entre
-              em contato.
-            </p>
-
-            <div className="flex flex-col gap-4">
-              <a
-                href="mailto:dev@email.com"
-                className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
-              >
-                <Mail className="h-5 w-5" />
-                <span className="text-sm">dev@email.com</span>
-              </a>
-              <a
-                href="https://github.com/Rafa-Mont-ui"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
-              >
-                <Github className="h-5 w-5" />
-                <span className="text-sm">github.com/Rafa-Mont-ui</span>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/rafael-fernando-franco-monteiro-a2b252213/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
-              >
-                <Linkedin className="h-5 w-5" />
-                <span className="text-sm">linkedin.com/in/rafael-fernando-franco-monteiro-a2b252213</span>
-              </a>
-            </div>
-          </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.2}>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col gap-4"
+        <ScrollReveal delay={0.1} className="flex justify-start md:col-span-3 md:col-start-7 md:justify-center">
+          <MagneticButton
+            href={`mailto:${site.email}`}
+            strength={0.45}
+            radius={180}
+            className="flex h-40 w-40 flex-col items-center justify-center gap-1 rounded-full bg-lime text-center text-primary-foreground transition-transform hover:scale-105 md:h-48 md:w-48"
           >
-            <div>
-              <label
-                htmlFor="name"
-                className="mb-2 block font-mono text-xs uppercase tracking-wider text-muted-foreground"
-              >
-                Nome
-              </label>
-              <input
-                type="text"
-                id="name"
-                placeholder="Seu nome"
-                className="w-full rounded-lg border border-border bg-secondary/50 px-4 py-3 text-sm text-foreground placeholder-muted-foreground/50 outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="email"
-                className="mb-2 block font-mono text-xs uppercase tracking-wider text-muted-foreground"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                placeholder="seu@email.com"
-                className="w-full rounded-lg border border-border bg-secondary/50 px-4 py-3 text-sm text-foreground placeholder-muted-foreground/50 outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="message"
-                className="mb-2 block font-mono text-xs uppercase tracking-wider text-muted-foreground"
-              >
-                Mensagem
-              </label>
-              <textarea
-                id="message"
-                rows={4}
-                placeholder="Conte sobre seu projeto..."
-                className="w-full resize-none rounded-lg border border-border bg-secondary/50 px-4 py-3 text-sm text-foreground placeholder-muted-foreground/50 outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
-              />
-            </div>
-            <button
-              type="submit"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:shadow-[0_0_24px_rgba(0,212,255,0.3)]"
-            >
-              <Send className="h-4 w-4" />
-              Enviar Mensagem
-            </button>
-          </form>
-          </ScrollReveal>
-        </div>
+            <ArrowUpRight className="h-6 w-6" />
+            <span className="font-medium">Enviar e-mail</span>
+          </MagneticButton>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.2} className="md:col-span-3 md:col-start-10">
+          <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Redes
+          </p>
+          <ul className="border-t border-border">
+            {site.socials.map((social) => (
+              <li key={social.label} className="border-b border-border">
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between py-4 text-lg transition-colors hover:text-lime"
+                >
+                  {social.label}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </ScrollReveal>
       </div>
     </section>
   )
