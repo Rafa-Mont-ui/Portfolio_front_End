@@ -1,148 +1,135 @@
 "use client"
 
-import { useGlitchText } from "@/hooks/use-glitch-text"
-import { useTextReveal } from "@/hooks/use-text-reveal"
-import { useParallax } from "@/hooks/use-parallax"
-import { motion } from "framer-motion"
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
+import { useRef } from "react"
+import dynamic from "next/dynamic"
+import { gsap } from "gsap"
+import { SplitText } from "gsap/SplitText"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
+import { ArrowDownRight } from "lucide-react"
+import { MagneticButton } from "@/components/ui/magnetic-button"
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(SplitText, ScrollTrigger)
+}
+
+// Three.js só é baixado no navegador, depois do HTML do hero
+const HeroObject = dynamic(
+  () => import("@/components/ui/hero-object").then((mod) => mod.HeroObject),
+  { ssr: false }
+)
 
 export function Hero() {
-  const badgeText = useGlitchText("Disponivel para novos projetos")
-  const frontEndText = useGlitchText("Front-End", { initialDelay: 800, pauseDuration: 2500 })
+  const root = useRef<HTMLElement>(null)
 
-  const paragraphRef = useTextReveal<HTMLParagraphElement>({
-    delay: 0.6,
-    stagger: 0.04,
-    duration: 0.8,
-    y: 24,
-    blur: 8,
-  })
-  const blob1Ref = useParallax<HTMLDivElement>({ speed: -160, scale: 1.15 })
-  const blob2Ref = useParallax<HTMLDivElement>({ speed: -90, scale: 1.1 })
+  useGSAP(
+    () => {
+      const lines = gsap.utils.toArray<HTMLElement>(".hero-line")
+      const fades = gsap.utils.toArray<HTMLElement>(".hero-fade")
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set([...lines, ...fades], { autoAlpha: 1 })
+        return
+      }
+
+      const split = SplitText.create(lines, { type: "chars" })
+      gsap.set(lines, { autoAlpha: 1 })
+
+      gsap
+        .timeline({ defaults: { ease: "expo.out" } })
+        .from(split.chars, { yPercent: 115, duration: 1.5, stagger: 0.045, delay: 0.15 })
+        .fromTo(
+          fades,
+          { autoAlpha: 0, y: 24 },
+          { autoAlpha: 1, y: 0, duration: 1, stagger: 0.07 },
+          "-=1.1"
+        )
+
+      gsap.to(".hero-title", {
+        yPercent: -22,
+        opacity: 0.2,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      })
+
+      return () => split.revert()
+    },
+    { scope: root }
+  )
 
   return (
     <section
+      ref={root}
       id="hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6"
+      className="px-gutter relative flex min-h-[100svh] flex-col pb-8 pt-24"
     >
-      {/* Neon glow background */}
-      <div className="pointer-events-none absolute inset-0">
-        <div
-          ref={blob1Ref}
-          className="absolute left-1/2 top-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-neon/5 blur-[128px]"
-        />
-        <div
-          ref={blob2Ref}
-          className="absolute right-1/4 bottom-1/4 h-64 w-64 rounded-full bg-neon-dim/5 blur-[96px]"
-        />
+      <div className="relative z-10 flex items-center justify-between gap-4">
+        <div className="hero-fade invisible inline-flex items-center gap-2.5 rounded-full border border-border px-3.5 py-1.5 text-xs text-muted-foreground">
+          <span className="pulse-dot h-2 w-2 rounded-full bg-lime" />
+          Disponível para novos projetos
+        </div>
+        <span className="hero-fade invisible hidden font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground lg:block">
+          <span className="text-lime">↳</span> WebGL · Three.js · GLSL
+        </span>
+        <span className="hero-fade invisible hidden font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:block">
+          Portfólio — {new Date().getFullYear()}
+        </span>
       </div>
 
-      <motion.div
-        className="relative z-10 mx-auto max-w-4xl text-center"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+      <HeroObject className="pointer-events-none absolute right-[2vw] top-[15%] z-0 aspect-square w-[62vw] max-w-[620px] sm:w-[48vw] md:right-[4vw] md:top-[8%] md:w-[38vw]" />
+
+      <h1
+        className="hero-title relative z-10 my-auto py-10 font-medium leading-[0.82] tracking-[-0.045em]"
+        aria-label="Rafael Monteiro, desenvolvedor front-end"
       >
-        <motion.div
-          className="mb-6 inline-block rounded-full border border-border bg-secondary/50 px-4 py-1.5"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <span
-            className="text-xs text-primary"
-            style={{ fontFamily: "var(--font-kode-mono), 'Kode Mono', monospace" }}
-          >
-            {badgeText}
+        <span className="block overflow-hidden pb-[0.06em]">
+          <span className="hero-line invisible block text-[21vw] md:text-[19vw]">Rafael</span>
+        </span>
+        <span className="block overflow-hidden pb-[0.1em] pr-[0.08em] text-right">
+          <span className="hero-line invisible block font-serif text-[21vw] font-normal italic tracking-[-0.02em] text-lime md:text-[19vw]">
+            Monteiro
           </span>
-        </motion.div>
+        </span>
+      </h1>
 
-        <motion.h1
-          className="mb-6 text-balance text-5xl font-bold leading-tight tracking-tight text-foreground md:text-7xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          Desenvolvedor{" "}
-          <span
-            className="text-primary"
-            style={{
-              textShadow: "0 0 40px rgba(0, 212, 255, 0.3)",
-              fontFamily: "var(--font-kode-mono), 'Kode Mono', monospace",
-            }}
-          >
-            {frontEndText}
-          </span>
-        </motion.h1>
-
-        <p
-          ref={paragraphRef}
-          className="mx-auto mb-10 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl"
-        >
-          Construo interfaces modernas, acessíveis e de alta performance.
-          Especializado em transformar ideias em experiências digitais que
-          encantam usuários e entregam resultados.
+      <div className="grid gap-8 border-t border-border pt-6 md:grid-cols-12 md:gap-6">
+        <p className="hero-fade invisible text-balance text-xl leading-snug md:col-span-5 md:text-2xl">
+          Desenvolvedor front-end que transforma design em interfaces{" "}
+          <em className="font-serif text-[1.15em] text-lime">rápidas</em>, acessíveis e com
+          personalidade.
         </p>
 
-        <motion.div
-          className="mb-16 flex items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-        >
-          <a
+        <dl className="hero-fade invisible grid grid-cols-2 gap-6 text-sm md:col-span-5 md:col-start-7">
+          <div>
+            <dt className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+              Especialidade
+            </dt>
+            <dd>React, Next.js &amp; TypeScript</dd>
+          </div>
+          <div>
+            <dt className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+              Atualmente
+            </dt>
+            <dd>Desenvolvedor freelancer</dd>
+          </div>
+        </dl>
+
+        <div className="hero-fade invisible flex items-start md:col-span-1 md:justify-end">
+          <MagneticButton
             href="#projetos"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:shadow-[0_0_24px_rgba(0,212,255,0.3)]"
+            strength={0.5}
+            aria-label="Ver trabalhos"
+            className="flex h-14 w-14 items-center justify-center rounded-full bg-lime text-primary-foreground transition-transform hover:scale-110"
           >
-            Ver Projetos
-          </a>
-          <a
-            href="#contato"
-            className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary/50 px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary/50 hover:text-primary"
-          >
-            Fale Comigo
-          </a>
-        </motion.div>
-
-        {/* Social links */}
-        <motion.div
-          className="flex items-center justify-center gap-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-        >
-          <a
-            href="https://github.com/Rafa-Mont-ui"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground transition-colors hover:text-primary"
-            aria-label="GitHub"
-          >
-            <Github className="h-5 w-5" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/rafael-fernando-franco-monteiro-a2b252213/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground transition-colors hover:text-primary"
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="h-5 w-5" />
-          </a>
-          <a
-            href="mailto:dev@email.com"
-            className="text-muted-foreground transition-colors hover:text-primary"
-            aria-label="Email"
-          >
-            <Mail className="h-5 w-5" />
-          </a>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <ArrowDown className="h-5 w-5 text-muted-foreground" />
+            <ArrowDownRight className="h-5 w-5" />
+          </MagneticButton>
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }

@@ -1,51 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import 'lenis/dist/lenis.css';
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #06090f;
-  --foreground: #e0e6ed;
-  --card: #0b1120;
-  --card-foreground: #e0e6ed;
-  --popover: #0b1120;
-  --popover-foreground: #e0e6ed;
-  --primary: #00d4ff;
-  --primary-foreground: #06090f;
-  --secondary: #0d1b2a;
-  --secondary-foreground: #8899aa;
-  --muted: #0d1b2a;
-  --muted-foreground: #5a7a9a;
-  --accent: #0088ff;
-  --accent-foreground: #e0e6ed;
-  --destructive: #ff4444;
+  --background: #0a0a09;
+  --foreground: #ede4cf;
+  --card: #121211;
+  --card-foreground: #ede4cf;
+  --popover: #121211;
+  --popover-foreground: #ede4cf;
+  --primary: #d4ff3a;
+  --primary-foreground: #0a0a09;
+  --secondary: #1a1a18;
+  --secondary-foreground: #ede4cf;
+  --muted: #1a1a18;
+  --muted-foreground: #979080;
+  --accent: #d4ff3a;
+  --accent-foreground: #0a0a09;
+  --destructive: #ff4d3a;
   --destructive-foreground: #ffffff;
-  --border: #1a2a3a;
-  --input: #1a2a3a;
-  --ring: #00d4ff;
-  --chart-1: #00d4ff;
-  --chart-2: #0088ff;
-  --chart-3: #005599;
-  --chart-4: #00aacc;
-  --chart-5: #3399ff;
-  --radius: 0.625rem;
-  --sidebar: #0b1120;
-  --sidebar-foreground: #e0e6ed;
-  --sidebar-primary: #00d4ff;
-  --sidebar-primary-foreground: #06090f;
-  --sidebar-accent: #0d1b2a;
-  --sidebar-accent-foreground: #e0e6ed;
-  --sidebar-border: #1a2a3a;
-  --sidebar-ring: #00d4ff;
-  --neon: #00d4ff;
-  --neon-dim: #0088ff;
+  --border: #262623;
+  --input: #262623;
+  --ring: #d4ff3a;
+  --chart-1: #d4ff3a;
+  --chart-2: #a8cc2e;
+  --chart-3: #7d9922;
+  --chart-4: #ede4cf;
+  --chart-5: #979080;
+  --radius: 0.75rem;
+  --sidebar: #121211;
+  --sidebar-foreground: #ede4cf;
+  --sidebar-primary: #d4ff3a;
+  --sidebar-primary-foreground: #0a0a09;
+  --sidebar-accent: #1a1a18;
+  --sidebar-accent-foreground: #ede4cf;
+  --sidebar-border: #262623;
+  --sidebar-ring: #d4ff3a;
+  --lime: #d4ff3a;
+  --gutter: clamp(1rem, 3vw, 2.5rem);
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
-  --font-kode: 'Kode Mono', monospace;
+  --font-sans: var(--font-geist), 'Geist', system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace;
+  --font-serif: var(--font-instrument), 'Instrument Serif', Georgia, serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -82,15 +82,62 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --color-neon: var(--neon);
-  --color-neon-dim: var(--neon-dim);
+  --color-lime: var(--lime);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html,
   body {
     @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: var(--lime);
+    color: var(--primary-foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--lime);
+    outline-offset: 3px;
+  }
+}
+
+@utility px-gutter {
+  padding-inline: var(--gutter);
+}
+
+/* Granulado de filme sobre toda a página */
+.grain {
+  position: fixed;
+  inset: -10%;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1.2s steps(6) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-4%, 3%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -1%); }
+  80% { transform: translate(3%, 3%); }
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgb(212 255 58 / 0.55); }
+  100% { box-shadow: 0 0 0 8px rgb(212 255 58 / 0); }
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.8s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain,
+  .pulse-dot {
+    animation: none;
   }
 }
