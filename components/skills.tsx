@@ -2,18 +2,70 @@
 
 import { motion } from "framer-motion"
 import { SectionHeading } from "@/components/ui/section-heading"
+import { TechIcon, brandColor, type TechIconName } from "@/components/ui/tech-icon"
 import { cn } from "@/lib/utils"
 
-const frontEnd = ["React", "Next.js", "TypeScript", "Three.js", "Vue.js", "Tailwind CSS", "HTML/CSS"]
+interface StackItem {
+  label: string
+  icons: TechIconName[]
+}
 
-const groups = [
-  { title: "Design", items: ["Figma", "Photoshop", "Adobe Illustrator", "InDesign"] },
-  { title: "Ferramentas", items: ["Git", "Vite", "GrapesJS", "WordPress + Elementor"] },
+const frontEnd: StackItem[] = [
+  { label: "React", icons: ["react"] },
+  { label: "Next.js", icons: ["nextjs"] },
+  { label: "TypeScript", icons: ["typescript"] },
+  { label: "Three.js", icons: ["threejs"] },
+  { label: "Vue.js", icons: ["vue"] },
+  { label: "Tailwind CSS", icons: ["tailwind"] },
+  { label: "HTML/CSS", icons: ["html", "css"] },
+]
+
+const groups: { title: string; items: StackItem[] }[] = [
+  {
+    title: "Design",
+    items: [
+      { label: "Figma", icons: ["figma"] },
+      { label: "Photoshop", icons: ["photoshop"] },
+      { label: "Adobe Illustrator", icons: ["illustrator"] },
+      { label: "InDesign", icons: ["indesign"] },
+    ],
+  },
+  {
+    title: "Ferramentas",
+    items: [
+      { label: "Git", icons: ["git"] },
+      { label: "Vite", icons: ["vite"] },
+      { label: "GrapesJS", icons: ["grapesjs"] },
+      { label: "WordPress + Elementor", icons: ["wordpress", "elementor"] },
+    ],
+  },
   {
     title: "Princípios",
-    items: ["Acessibilidade", "Performance", "Responsividade", "Pixel-perfect"],
+    items: [
+      { label: "Acessibilidade", icons: ["accessibility"] },
+      { label: "Performance", icons: ["performance"] },
+      { label: "Responsividade", icons: ["responsive"] },
+      { label: "Pixel-perfect", icons: ["pixel"] },
+    ],
   },
 ]
+
+/** Ícones do item: neutros por padrão, na cor da marca no hover do item (group). */
+function ItemIcons({ icons, className }: { icons: TechIconName[]; className?: string }) {
+  return (
+    <span className="flex shrink-0 items-center gap-1.5">
+      {icons.map((icon) => (
+        <span
+          key={icon}
+          className="text-muted-foreground transition-colors duration-300 group-hover:text-[var(--brand)]"
+          style={{ "--brand": brandColor(icon) } as React.CSSProperties}
+        >
+          <TechIcon name={icon} className={className} />
+        </span>
+      ))}
+    </span>
+  )
+}
 
 function Cell({
   children,
@@ -49,8 +101,11 @@ export function Skills() {
           </h3>
           <ul className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-4xl font-medium tracking-[-0.03em] md:text-6xl">
             {frontEnd.map((item, i) => (
-              <li key={item} className="flex items-baseline gap-4">
-                <span className="transition-colors hover:text-lime">{item}</span>
+              <li key={item.label} className="flex items-baseline gap-4">
+                <span className="group inline-flex items-center gap-[0.28em] transition-colors hover:text-lime">
+                  <ItemIcons icons={item.icons} className="h-[0.72em] w-[0.72em]" />
+                  {item.label}
+                </span>
                 {i < frontEnd.length - 1 && (
                   <span aria-hidden="true" className="font-serif font-normal italic text-muted-foreground">
                     /
@@ -82,9 +137,9 @@ export function Skills() {
             </h3>
             <ul className="divide-y divide-border">
               {group.items.map((item) => (
-                <li key={item} className="flex items-center justify-between py-3 text-lg">
-                  {item}
-                  <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-lime/70" />
+                <li key={item.label} className="group flex items-center gap-3 py-3 text-lg">
+                  <ItemIcons icons={item.icons} className="h-5 w-5" />
+                  {item.label}
                 </li>
               ))}
             </ul>
