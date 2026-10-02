@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/section-heading"
 
 const experiences = [
   {
-    period: "2026 — Presente",
+    period: "Fev 2026 — Presente",
     role: "Desenvolvedor Front-End",
     company: "Freelancer",
     description:
@@ -13,7 +13,7 @@ const experiences = [
     techs: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
   },
   {
-    period: "2026",
+    period: "Fev 2026 — Out 2026",
     role: "Desenvolvedor Web",
     company: "Larafy",
     description:
