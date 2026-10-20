@@ -25,6 +25,16 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Wex",
+    kind: "Site institucional · Agência",
+    meta: "Wex — 2026",
+    description:
+      "Site da assessoria de marketing de alto padrão: narrativa guiada por scroll com uma lente de câmera que se abre por capítulos, oito frentes de serviço, carrossel de marcas atendidas, processo de trabalho e questionário de diagnóstico em etapas.",
+    techs: ["Next.js", "Scroll storytelling", "SEO + GEO"],
+    live: "https://wex-site.vercel.app/",
+    image: "/projects/wex.jpg",
+  },
+  {
     title: "LaraTAX",
     kind: "Site de produto · SaaS",
     meta: "Larafy — 2026",
@@ -78,19 +88,23 @@ export function Projects() {
       mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         const cards = gsap.utils.toArray<HTMLElement>(".project-card")
 
-        // Cada card encolhe e escurece enquanto o próximo sobe por cima
+        // Cada card recua levemente só quando o próximo já passou da metade da tela.
+        // A sombra é uma camada com opacidade (barata) em vez de filter: brightness.
         cards.slice(0, -1).forEach((card, i) => {
-          gsap.to(card.querySelector(".project-inner"), {
-            scale: 0.94,
-            filter: "brightness(0.45)",
-            ease: "none",
+          const tl = gsap.timeline({
             scrollTrigger: {
               trigger: cards[i + 1],
-              start: "top bottom",
+              start: "top 55%",
               end: `top ${96 + (i + 1) * 20}px`,
-              scrub: true,
+              scrub: 0.4,
             },
           })
+
+          tl.to(card.querySelector(".project-inner"), { scale: 0.96, ease: "none" }, 0).to(
+            card.querySelector(".project-shade"),
+            { opacity: 0.35, ease: "none" },
+            0
+          )
         })
       })
 
@@ -114,7 +128,11 @@ export function Projects() {
             className="project-card md:sticky"
             style={{ top: `${96 + i * 20}px` }}
           >
-            <div className="project-inner origin-top overflow-hidden rounded-2xl border border-border bg-card will-change-transform md:h-[calc(100svh-9rem)]">
+            <div className="project-inner relative origin-top overflow-hidden rounded-2xl border border-border bg-card will-change-transform md:h-[calc(100svh-9rem)]">
+              <div
+                aria-hidden
+                className="project-shade pointer-events-none absolute inset-0 z-10 bg-background opacity-0"
+              />
               <div className="grid h-full gap-8 p-5 md:grid-cols-12 md:gap-6 md:p-8">
                 <div className="flex flex-col md:col-span-4">
                   <div className="mb-6 flex items-center justify-between font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
