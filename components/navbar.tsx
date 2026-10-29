@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
+import { useLanguage } from "@/components/language-provider"
 import { LocalTime } from "@/components/ui/local-time"
 import { navLinks, site } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 export function Navbar() {
+  const { locale, setLocale, t } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
@@ -53,32 +55,47 @@ export function Navbar() {
           <div className="hidden items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground lg:flex">
             <LocalTime />
             <span aria-hidden="true">/</span>
-            <span>{site.location}</span>
+            <span>{t(site.location)}</span>
           </div>
 
-          <ul className="hidden items-center gap-7 md:flex">
-            {navLinks.map((link, i) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="group relative flex items-baseline gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  <span className="font-mono text-[10px] text-lime/70">0{i + 1}</span>
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-lime transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="flex items-center gap-5 md:gap-7">
+            <ul className="hidden items-center gap-7 md:flex">
+              {navLinks.map((link, i) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="group relative flex items-baseline gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <span className="font-mono text-[10px] text-lime/70">0{i + 1}</span>
+                    {t(link.label)}
+                    <span className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-lime transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
+                  </a>
+                </li>
+              ))}
+            </ul>
 
-          <button
-            onClick={() => setIsOpen((v) => !v)}
-            className="relative z-[60] font-mono text-xs uppercase tracking-widest md:hidden"
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-          >
-            {isOpen ? "Fechar" : "Menu"}
-          </button>
+            <button
+              type="button"
+              onClick={() => setLocale(locale === "pt" ? "en" : "pt")}
+              aria-label={t({ pt: "Mudar idioma para inglês", en: "Switch language to Portuguese" })}
+              className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-colors hover:border-lime"
+            >
+              <span className={locale === "pt" ? "text-lime" : "text-muted-foreground"}>PT</span>
+              <span aria-hidden="true" className="text-muted-foreground/50">
+                /
+              </span>
+              <span className={locale === "en" ? "text-lime" : "text-muted-foreground"}>EN</span>
+            </button>
+
+            <button
+              onClick={() => setIsOpen((v) => !v)}
+              className="relative z-[60] font-mono text-xs uppercase tracking-widest md:hidden"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+            >
+              {isOpen ? t({ pt: "Fechar", en: "Close" }) : "Menu"}
+            </button>
+          </div>
         </nav>
       </motion.header>
 
@@ -106,7 +123,7 @@ export function Navbar() {
                     className="flex items-baseline gap-3 border-b border-border py-3 text-5xl font-medium tracking-tight"
                   >
                     <span className="font-mono text-xs text-lime">0{i + 1}</span>
-                    {link.label}
+                    {t(link.label)}
                   </a>
                 </motion.li>
               ))}
@@ -114,7 +131,7 @@ export function Navbar() {
             <div className="flex items-center justify-between font-mono text-xs uppercase tracking-widest text-muted-foreground">
               <LocalTime />
               <a href={`mailto:${site.email}`} className="text-lime">
-                E-mail
+                {t({ pt: "E-mail", en: "Email" })}
               </a>
             </div>
           </motion.div>

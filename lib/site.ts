@@ -1,8 +1,8 @@
 export const site = {
   name: "Rafael Monteiro",
-  role: "Desenvolvedor Front-End",
+  role: { pt: "Desenvolvedor Front-End", en: "Front-End Developer" },
   email: "rafaelffmonteiro@gmail.com",
-  location: "Brasil",
+  location: { pt: "Brasil", en: "Brazil" },
   timeZone: "America/Sao_Paulo",
   socials: [
     { label: "GitHub", href: "https://github.com/Rafa-Mont-ui" },
@@ -14,9 +14,9 @@ export const site = {
 }
 
 export const navLinks = [
-  { label: "Sobre", href: "#sobre" },
-  { label: "Trabalhos", href: "#projetos" },
-  { label: "Experiência", href: "#experiencia" },
+  { label: { pt: "Sobre", en: "About" }, href: "#sobre" },
+  { label: { pt: "Trabalhos", en: "Work" }, href: "#projetos" },
+  { label: { pt: "Experiência", en: "Experience" }, href: "#experiencia" },
   { label: "Stack", href: "#stack" },
-  { label: "Contato", href: "#contato" },
+  { label: { pt: "Contato", en: "Contact" }, href: "#contato" },
 ]

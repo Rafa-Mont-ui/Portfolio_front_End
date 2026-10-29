@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { SmoothScroll } from '@/components/ui/smooth-scroll'
 import { Cursor } from '@/components/ui/cursor'
 import { ScrollProgress } from '@/components/ui/scroll-progress'
+import { LanguageProvider } from '@/components/language-provider'
 import './globals.css'
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" })
@@ -49,7 +50,7 @@ export default function RootLayout({
         <ScrollProgress />
         <Cursor />
         <div aria-hidden="true" className="grain" />
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
         <Analytics />
       </body>
     </html>

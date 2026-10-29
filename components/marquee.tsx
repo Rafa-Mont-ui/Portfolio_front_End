@@ -4,12 +4,14 @@ import { useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
+import { useLanguage } from "@/components/language-provider"
+import type { Translatable } from "@/lib/i18n"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-const items = [
+const items: Translatable[] = [
   "React",
   "Next.js",
   "TypeScript",
@@ -19,11 +21,12 @@ const items = [
   "Vue.js",
   "Figma",
   "UI Design",
-  "Acessibilidade",
+  { pt: "Acessibilidade", en: "Accessibility" },
   "Performance",
 ]
 
 export function Marquee() {
+  const { t } = useLanguage()
   const root = useRef<HTMLDivElement>(null)
 
   useGSAP(
@@ -65,7 +68,7 @@ export function Marquee() {
     <div className="marquee-track flex w-max">
       {[0, 1].map((copy) => (
         <ul key={copy} className="flex shrink-0">
-          {items.map((item) => (
+          {items.map(t).map((item) => (
             <li key={item} className="flex items-center gap-8 pr-8">
               <span
                 className={
@@ -91,7 +94,9 @@ export function Marquee() {
       ref={root}
       className="flex select-none flex-col gap-2 overflow-hidden border-y border-border py-6 text-5xl font-medium tracking-tight md:py-8 md:text-7xl"
     >
-      <span className="sr-only">Tecnologias: {items.join(", ")}</span>
+      <span className="sr-only">
+        {t({ pt: "Tecnologias", en: "Technologies" })}: {items.map(t).join(", ")}
+      </span>
       <div aria-hidden="true">{row("solid")}</div>
       <div aria-hidden="true">{row("outline")}</div>
     </div>

@@ -6,18 +6,20 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
 import { ArrowUpRight, Github } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 import { SectionHeading } from "@/components/ui/section-heading"
+import type { Localized, Translatable } from "@/lib/i18n"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
 
 interface Project {
-  title: string
-  kind: string
-  meta: string
-  description: string
-  techs: string[]
+  title: Translatable
+  kind: Localized
+  meta: Translatable
+  description: Localized
+  techs: Translatable[]
   live: string
   github?: string
   image: string
@@ -26,51 +28,61 @@ interface Project {
 const projects: Project[] = [
   {
     title: "Wex",
-    kind: "Site institucional · Agência",
+    kind: { pt: "Site institucional · Agência", en: "Company website · Agency" },
     meta: "Wex — 2026",
-    description:
-      "Site da assessoria de marketing de alto padrão: narrativa guiada por scroll com uma lente de câmera que se abre por capítulos, oito frentes de serviço, carrossel de marcas atendidas, processo de trabalho e questionário de diagnóstico em etapas.",
+    description: {
+      pt: "Site da assessoria de marketing de alto padrão: narrativa guiada por scroll com uma lente de câmera que se abre por capítulos, oito frentes de serviço, carrossel de marcas atendidas, processo de trabalho e questionário de diagnóstico em etapas.",
+      en: "Website for a high-end marketing agency: scroll-driven storytelling with a camera lens that opens chapter by chapter, eight service areas, a carousel of client brands, the work process and a multi-step diagnostic questionnaire.",
+    },
     techs: ["Next.js", "Scroll storytelling", "SEO + GEO"],
     live: "https://wex-site.vercel.app/",
     image: "/projects/wex.jpg",
   },
   {
     title: "LaraTAX",
-    kind: "Site de produto · SaaS",
+    kind: { pt: "Site de produto · SaaS", en: "Product website · SaaS" },
     meta: "Larafy — 2026",
-    description:
-      "Site da plataforma que automatiza o diagnóstico tributário para contadores e tributaristas: download automático de SPED, e-CAC e e-Social, simulações da reforma tributária e painéis de oportunidades de recuperação de crédito.",
-    techs: ["Vite", "GSAP", "UI de dashboard"],
+    description: {
+      pt: "Site da plataforma que automatiza o diagnóstico tributário para contadores e tributaristas: download automático de SPED, e-CAC e e-Social, simulações da reforma tributária e painéis de oportunidades de recuperação de crédito.",
+      en: "Website for the platform that automates tax diagnostics for accountants and tax specialists: automatic SPED, e-CAC and e-Social downloads, tax reform simulations and dashboards of tax credit recovery opportunities.",
+    },
+    techs: ["Vite", "GSAP", { pt: "UI de dashboard", en: "Dashboard UI" }],
     live: "https://novo-site-laratax.vercel.app/",
     image: "/projects/laratax.jpg",
   },
   {
     title: "LaraFy",
-    kind: "Site institucional",
+    kind: { pt: "Site institucional", en: "Company website" },
     meta: "Larafy — 2026",
-    description:
-      "Site institucional de planejamento tributário: hero com vídeo, prova social com mais de R$ 1,2 bilhão economizados por setor, carrossel de clientes, ecossistema de serviços e captação de diagnóstico estratégico.",
+    description: {
+      pt: "Site institucional de planejamento tributário: hero com vídeo, prova social com mais de R$ 1,2 bilhão economizados por setor, carrossel de clientes, ecossistema de serviços e captação de diagnóstico estratégico.",
+      en: "Company website for a tax planning firm: video hero, social proof with over R$ 1.2 billion saved across industries, client carousel, service ecosystem and lead capture for a strategic diagnosis.",
+    },
     techs: ["Next.js", "Tailwind CSS", "GSAP"],
     live: "https://larafy.com.br/",
     image: "/projects/larafy.jpg",
   },
   {
     title: "VitaSlim",
-    kind: "Landing page VSL",
-    meta: "Teste técnico",
-    description:
-      "Landing page de Video Sales Letter com produtos, depoimentos e planos. Projeto de teste front-end com foco em conversão e experiência do usuário.",
+    kind: { pt: "Landing page VSL", en: "VSL landing page" },
+    meta: { pt: "Teste técnico", en: "Technical test" },
+    description: {
+      pt: "Landing page de Video Sales Letter com produtos, depoimentos e planos. Projeto de teste front-end com foco em conversão e experiência do usuário.",
+      en: "Video Sales Letter landing page with products, testimonials and plans. A front-end test project focused on conversion and user experience.",
+    },
     techs: ["React", "TypeScript", "Tailwind CSS"],
     live: "https://site-vsl-teste-grupo-six.vercel.app/",
     github: "https://github.com/Rafa-Mont-ui/Site-VSL-Teste-Grupo-Six",
     image: "/projects/vitaslim.jpg",
   },
   {
-    title: "Lista de Compras",
-    kind: "Aplicação web",
-    meta: "Projeto pessoal",
-    description:
-      "Checklist de mercado interativo para organizar as compras do dia a dia, com adição, marcação e remoção de itens.",
+    title: { pt: "Lista de Compras", en: "Shopping List" },
+    kind: { pt: "Aplicação web", en: "Web app" },
+    meta: { pt: "Projeto pessoal", en: "Personal project" },
+    description: {
+      pt: "Checklist de mercado interativo para organizar as compras do dia a dia, com adição, marcação e remoção de itens.",
+      en: "Interactive grocery checklist to organize everyday shopping, with adding, checking off and removing items.",
+    },
     techs: ["React", "TypeScript"],
     live: "https://lista-mercado-v1.vercel.app/",
     github: "https://github.com/Rafa-Mont-ui/Lista-Mercado-v1",
@@ -79,6 +91,7 @@ const projects: Project[] = [
 ]
 
 export function Projects() {
+  const { t } = useLanguage()
   const root = useRef<HTMLElement>(null)
 
   useGSAP(
@@ -117,14 +130,14 @@ export function Projects() {
     <section ref={root} id="projetos" className="px-gutter py-24 md:py-40">
       <SectionHeading
         index="02"
-        title="Trabalhos selecionados"
-        aside={`${String(projects.length).padStart(2, "0")} projetos`}
+        title={t({ pt: "Trabalhos selecionados", en: "Selected work" })}
+        aside={`${String(projects.length).padStart(2, "0")} ${t({ pt: "projetos", en: "projects" })}`}
       />
 
       <div className="flex flex-col gap-6 md:gap-[12vh]">
         {projects.map((project, i) => (
           <article
-            key={project.title}
+            key={project.live}
             className="project-card md:sticky"
             style={{ top: `${96 + i * 20}px` }}
           >
@@ -137,19 +150,19 @@ export function Projects() {
                 <div className="flex flex-col md:col-span-4">
                   <div className="mb-6 flex items-center justify-between font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
                     <span className="text-lime">{String(i + 1).padStart(2, "0")}</span>
-                    <span>{project.meta}</span>
+                    <span>{t(project.meta)}</span>
                   </div>
 
                   <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    {project.kind}
+                    {t(project.kind)}
                   </p>
                   <h3 className="mb-6 text-5xl font-medium tracking-[-0.04em] lg:text-6xl">
-                    {project.title}
+                    {t(project.title)}
                   </h3>
-                  <p className="leading-relaxed text-muted-foreground">{project.description}</p>
+                  <p className="leading-relaxed text-muted-foreground">{t(project.description)}</p>
 
                   <ul className="mt-6 flex flex-wrap gap-2">
-                    {project.techs.map((tech) => (
+                    {project.techs.map(t).map((tech) => (
                       <li
                         key={tech}
                         className="rounded-full border border-border px-3 py-1 font-mono text-xs text-muted-foreground"
@@ -166,7 +179,7 @@ export function Projects() {
                       rel="noopener noreferrer"
                       className="group inline-flex items-center gap-2 rounded-full bg-lime px-5 py-2.5 text-sm font-medium text-primary-foreground"
                     >
-                      Visitar site
+                      {t({ pt: "Visitar site", en: "Visit site" })}
                       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </a>
                     {project.github && (
@@ -177,7 +190,7 @@ export function Projects() {
                         className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
                       >
                         <Github className="h-4 w-4" />
-                        Código
+                        {t({ pt: "Código", en: "Code" })}
                       </a>
                     )}
                   </div>
@@ -187,8 +200,11 @@ export function Projects() {
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  data-cursor="Visitar"
-                  aria-label={`Abrir ${project.title} em nova aba`}
+                  data-cursor={t({ pt: "Visitar", en: "Visit" })}
+                  aria-label={t({
+                    pt: `Abrir ${t(project.title)} em nova aba`,
+                    en: `Open ${t(project.title)} in a new tab`,
+                  })}
                   className="group flex min-h-[240px] flex-col overflow-hidden rounded-xl border border-border bg-background md:col-span-8"
                 >
                   <div className="flex items-center gap-2 border-b border-border px-4 py-3">
@@ -202,7 +218,10 @@ export function Projects() {
                   <div className="relative aspect-[16/10] flex-1 overflow-hidden md:aspect-auto">
                     <Image
                       src={project.image}
-                      alt={`Página inicial do projeto ${project.title}`}
+                      alt={t({
+                        pt: `Página inicial do projeto ${t(project.title)}`,
+                        en: `${t(project.title)} project homepage`,
+                      })}
                       fill
                       sizes="(max-width: 768px) 100vw, 60vw"
                       className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
